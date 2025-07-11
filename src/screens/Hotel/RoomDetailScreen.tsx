@@ -1,20 +1,27 @@
 import React from 'react';
-import { View, Text, StyleSheet, Button, TouchableOpacity } from 'react-native';
-import { RouteProp, useRoute } from '@react-navigation/native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { RouteProp, useRoute, useNavigation } from '@react-navigation/native';
 import { mockRooms } from '../../services/roomService';
 import { HotelStackParamList } from '../../navigation/MainTabNavigator';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 // Тип для параметрів навігації
  type RoomDetailRouteProp = RouteProp<HotelStackParamList, 'RoomDetail'>;
+ type NavigationProp = StackNavigationProp<HotelStackParamList, 'RoomDetail'>;
 
 const RoomDetailScreen = () => {
   const route = useRoute<RoomDetailRouteProp>();
+  const navigation = useNavigation<NavigationProp>();
   const roomId = route.params?.roomId;
   const room = mockRooms.find((r) => r.id === roomId);
 
   if (!room) {
     return <View style={styles.center}><Text>Кімната не знайдена</Text></View>;
   }
+
+  const handleBook = () => {
+    navigation.navigate('BookingConfirmation');
+  };
 
   return (
     <View style={styles.container}>
@@ -31,7 +38,7 @@ const RoomDetailScreen = () => {
         <Text style={styles.label}>В наявності:</Text>
         <Text style={styles.value}>{room.stokKamar}</Text>
       </View>
-      <TouchableOpacity style={styles.bookBtn} onPress={() => {}}>
+      <TouchableOpacity style={styles.bookBtn} onPress={handleBook}>
         <Text style={styles.bookBtnText}>Забронювати</Text>
       </TouchableOpacity>
     </View>
