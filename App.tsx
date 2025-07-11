@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import AppNavigator from './src/navigation/AppNavigator';
 import SplashScreen from './src/components/common/SplashScreen';
+import { BookingProvider } from './src/store/BookingContext';
+import { AuthProvider } from './src/store/AuthContext';
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -14,7 +16,13 @@ const App = () => {
     return <SplashScreen />;
   }
 
-  return <AppNavigator />;
+  return (
+    <AuthProvider>
+      <BookingProvider>
+        <AppNavigator />
+      </BookingProvider>
+    </AuthProvider>
+  );
 };
 
 export default App;

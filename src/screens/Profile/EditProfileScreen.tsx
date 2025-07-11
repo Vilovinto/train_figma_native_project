@@ -1,18 +1,32 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { mockUser } from '../../services/userService';
 
 const EditProfileScreen = () => {
   const [name, setName] = useState(mockUser.name);
   const [email, setEmail] = useState(mockUser.email);
+  const [error, setError] = useState('');
+
+  const validateEmail = (email: string) => /\S+@\S+\.\S+/.test(email);
 
   const handleSave = () => {
+    if (!name.trim()) {
+      setError("Ім'я не може бути порожнім");
+      return;
+    }
+    if (!validateEmail(email)) {
+      setError('Некоректний email');
+      return;
+    }
+    setError('');
     // Тут буде логіка збереження
-    alert('Профіль оновлено!');
+    Alert.alert('Профіль оновлено!');
   };
 
   return (
     <View style={styles.container}>
+      <Text style={styles.header}>Редагування профілю</Text>
+      {error ? <Text style={styles.error}>{error}</Text> : null}
       <Text style={styles.label}>Ім'я</Text>
       <TextInput
         style={styles.input}
@@ -41,6 +55,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     padding: 24,
   },
+  header: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: '#6C3DD1',
+    marginBottom: 24,
+    textAlign: 'center',
+  },
   label: {
     fontSize: 15,
     color: '#888',
@@ -66,6 +87,12 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 17,
     fontWeight: 'bold',
+  },
+  error: {
+    color: 'red',
+    marginBottom: 10,
+    textAlign: 'center',
+    fontSize: 15,
   },
 });
 

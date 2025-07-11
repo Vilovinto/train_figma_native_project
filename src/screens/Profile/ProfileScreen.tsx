@@ -4,9 +4,11 @@ import { mockUser } from '../../services/userService';
 import BalanceCard from '../../components/user/BalanceCard';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
+import { useAuth } from '../../store/AuthContext';
 
 const ProfileScreen = () => {
   const navigation = useNavigation();
+  const { logout } = useAuth();
   return (
     <View style={styles.container}>
       <View style={styles.avatarBlock}>
@@ -25,6 +27,10 @@ const ProfileScreen = () => {
       <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate('BookingHistory')}>
         <Icon name="time-outline" size={20} color="#fff" style={{ marginRight: 8 }} />
         <Text style={styles.btnText}>Історія бронювань</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.logoutBtn} onPress={logout}>
+        <Icon name="log-out-outline" size={20} color="#6C3DD1" style={{ marginRight: 8 }} />
+        <Text style={styles.logoutBtnText}>Вийти</Text>
       </TouchableOpacity>
     </View>
   );
@@ -68,6 +74,22 @@ const styles = StyleSheet.create({
   },
   btnText: {
     color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  logoutBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderColor: '#6C3DD1',
+    borderWidth: 2,
+    borderRadius: 10,
+    paddingVertical: 14,
+    paddingHorizontal: 18,
+    marginTop: 28,
+    justifyContent: 'center',
+  },
+  logoutBtnText: {
+    color: '#6C3DD1',
     fontSize: 16,
     fontWeight: 'bold',
   },

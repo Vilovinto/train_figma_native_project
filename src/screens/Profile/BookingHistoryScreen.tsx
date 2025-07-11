@@ -1,32 +1,16 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
-
-// Мок-дані для бронювань
-const mockBookings = [
-  {
-    id: '1',
-    hotel: 'Hotel Kyiv',
-    room: 'Люкс',
-    date: '2024-07-10',
-    price: 2000,
-  },
-  {
-    id: '2',
-    hotel: 'Hotel Lviv',
-    room: 'Стандарт',
-    date: '2024-06-20',
-    price: 800,
-  },
-];
+import { useBooking } from '../../store/BookingContext';
 
 const BookingHistoryScreen = () => {
+  const { bookings } = useBooking();
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.header}>Історія бронювань</Text>
-      {mockBookings.length === 0 ? (
+      {bookings.length === 0 ? (
         <Text style={styles.empty}>Бронювань немає</Text>
       ) : (
-        mockBookings.map((b) => (
+        bookings.map((b) => (
           <View key={b.id} style={styles.card}>
             <Text style={styles.hotel}>{b.hotel}</Text>
             <Text style={styles.room}>Кімната: {b.room}</Text>

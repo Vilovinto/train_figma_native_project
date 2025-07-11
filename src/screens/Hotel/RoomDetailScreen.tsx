@@ -2,8 +2,10 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { RouteProp, useRoute, useNavigation } from '@react-navigation/native';
 import { mockRooms } from '../../services/roomService';
+import { mockHotels } from '../../services/hotelService';
 import { HotelStackParamList } from '../../navigation/MainTabNavigator';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { useBooking } from '../../store/BookingContext';
 
 // Тип для параметрів навігації
  type RoomDetailRouteProp = RouteProp<HotelStackParamList, 'RoomDetail'>;
@@ -12,14 +14,23 @@ import { StackNavigationProp } from '@react-navigation/stack';
 const RoomDetailScreen = () => {
   const route = useRoute<RoomDetailRouteProp>();
   const navigation = useNavigation<NavigationProp>();
+  const { addBooking } = useBooking();
   const roomId = route.params?.roomId;
   const room = mockRooms.find((r) => r.id === roomId);
+  const hotel = room ? mockHotels.find((h) => h.id === room.hotelId) : undefined;
 
-  if (!room) {
+  if (!room || !hotel) {
     return <View style={styles.center}><Text>Кімната не знайдена</Text></View>;
   }
 
   const handleBook = () => {
+    addBooking({
+      id: Date.now().toString(),
+      hotel: hotel.namaHotel,
+      room: room.namaKamar,
+      date: new Date().toISOString().slice(0, 10),
+      price: room.hargaKamar,
+    });
     navigation.navigate('BookingConfirmation');
   };
 
