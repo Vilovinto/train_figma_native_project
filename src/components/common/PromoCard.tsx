@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import { Promo } from '../../types/promo';
+import { COLORS } from '../../constants/colors';
+import { FONTS } from '../../constants/fonts';
 
 type Props = {
   promo: Promo;
@@ -17,25 +19,29 @@ const PromoCard: React.FC<Props> = ({ promo }) => {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: '#fff',
-    borderRadius: 12,
-    padding: 10,
-    marginRight: 12,
+    backgroundColor: COLORS.card,
+    borderRadius: 16,
+    padding: 12,
+    marginRight: 16,
     alignItems: 'center',
     width: 180,
+    shadowColor: COLORS.primary,
+    shadowOpacity: 0.08,
+    shadowRadius: 8,
     elevation: 2,
   },
   image: {
-    width: 160,
+    width: 156,
     height: 70,
-    borderRadius: 8,
-    marginBottom: 8,
+    borderRadius: 10,
+    marginBottom: 10,
   },
   title: {
-    fontSize: 14,
+    fontSize: FONTS.size.sm,
     fontWeight: 'bold',
-    color: '#6C3DD1',
+    color: COLORS.primary,
     textAlign: 'center',
+    fontFamily: FONTS.bold,
   },
 });
 
