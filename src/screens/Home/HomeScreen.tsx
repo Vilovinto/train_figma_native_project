@@ -1,13 +1,23 @@
-import React from 'react';
-import { View, Text, ScrollView, FlatList, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import BalanceCard from '../../components/user/BalanceCard';
 import PromoCard from '../../components/common/PromoCard';
 import HotelCard from '../../components/hotel/HotelCard';
+import SearchInput from '../../components/common/SearchInput';
 import { mockUser } from '../../services/userService';
 import { mockPromos } from '../../services/promoService';
 import { mockHotels } from '../../services/hotelService';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { HotelStackParamList } from '../../navigation/MainTabNavigator';
 
 const HomeScreen = () => {
+  const [search, setSearch] = useState('');
+  const navigation = useNavigation<StackNavigationProp<HotelStackParamList, 'HotelList'>>();
+  const filteredHotels = mockHotels.filter(hotel =>
+    hotel.namaHotel.toLowerCase().includes(search.toLowerCase())
+  );
+
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.header}>Головна</Text>
@@ -18,9 +28,15 @@ const HomeScreen = () => {
           <PromoCard key={promo.id} promo={promo} />
         ))}
       </ScrollView>
+      <Text style={styles.sectionTitle}>Пошук готелю</Text>
+      <SearchInput value={search} onChangeText={setSearch} />
       <Text style={styles.sectionTitle}>Популярні готелі</Text>
-      {mockHotels.slice(0, 3).map((hotel) => (
-        <HotelCard key={hotel.id} hotel={hotel} />
+      {filteredHotels.slice(0, 3).map((hotel) => (
+        <HotelCard
+          key={hotel.id}
+          hotel={hotel}
+          onPress={() => navigation.navigate('HotelDetail', { hotelId: hotel.id })}
+        />
       ))}
     </ScrollView>
   );
