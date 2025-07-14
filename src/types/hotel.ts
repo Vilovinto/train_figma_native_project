@@ -1,4 +1,4 @@
-export interface Hotel {
+export type Hotel = {
   id: string;
   namaHotel: string;
   deskripsiHotel: string;
@@ -6,4 +6,5 @@ export interface Hotel {
   kategoriHotel: string;
   lokasiHotel: string;
   maps: string;
+  styles?: any;
 } 

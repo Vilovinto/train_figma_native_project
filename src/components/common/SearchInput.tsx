@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, TextInput, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { COLORS } from '../../constants/colors';
+import { FONTS } from '../../constants/fonts';
 
 type Props = {
   value: string;
@@ -11,13 +13,13 @@ type Props = {
 const SearchInput: React.FC<Props> = ({ value, onChangeText, placeholder }) => {
   return (
     <View style={styles.container}>
-      <Icon name="search" size={20} color="#6C3DD1" style={styles.icon} />
+      <Icon name="search" size={22} color={COLORS.primary} style={styles.icon} />
       <TextInput
         style={styles.input}
         value={value}
         onChangeText={onChangeText}
         placeholder={placeholder || 'Пошук готелю...'}
-        placeholderTextColor="#aaa"
+        placeholderTextColor={COLORS.textSecondary}
       />
     </View>
   );
@@ -27,20 +29,24 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#fff',
-    borderRadius: 10,
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-    marginBottom: 16,
+    backgroundColor: COLORS.card,
+    borderRadius: 14,
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+    marginBottom: 18,
+    shadowColor: COLORS.primary,
+    shadowOpacity: 0.07,
+    shadowRadius: 6,
     elevation: 2,
   },
   icon: {
-    marginRight: 8,
+    marginRight: 10,
   },
   input: {
     flex: 1,
-    fontSize: 16,
-    color: '#222',
+    fontSize: FONTS.size.md,
+    color: COLORS.text,
+    fontFamily: FONTS.regular,
   },
 });
 

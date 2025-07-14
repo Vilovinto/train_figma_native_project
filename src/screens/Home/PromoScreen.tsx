@@ -2,10 +2,12 @@ import React from 'react';
 import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import { mockPromos } from '../../services/promoService';
 import PromoCard from '../../components/common/PromoCard';
+import { COLORS } from '../../constants/colors';
+import { FONTS } from '../../constants/fonts';
 
 const PromoScreen = () => {
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <Text style={styles.header}>Промо-акції</Text>
       {mockPromos.length === 0 ? (
         <Text style={styles.empty}>Промо-акцій немає</Text>
@@ -23,24 +25,26 @@ const PromoScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    padding: 16,
+    backgroundColor: COLORS.white,
+    padding: 18,
   },
   header: {
-    fontSize: 20,
+    fontSize: FONTS.size.xl,
     fontWeight: 'bold',
-    color: '#6C3DD1',
-    marginBottom: 16,
+    color: COLORS.primary,
+    marginBottom: 18,
+    fontFamily: FONTS.bold,
   },
   cardWrapper: {
-    marginBottom: 16,
+    marginBottom: 18,
     alignItems: 'center',
   },
   empty: {
-    fontSize: 16,
-    color: '#888',
+    fontSize: FONTS.size.md,
+    color: COLORS.textSecondary,
     textAlign: 'center',
     marginTop: 32,
+    fontFamily: FONTS.regular,
   },
 });
 

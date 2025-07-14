@@ -56,7 +56,6 @@ const MainTabNavigator = () => {
         tabBarIcon: ({ color, size }) => {
           let iconName = '';
           if (route.name === 'Home') iconName = 'home-outline';
-          else if (route.name === 'Hotels') iconName = 'business-outline';
           else if (route.name === 'Promo') iconName = 'pricetags-outline';
           else if (route.name === 'Profile') iconName = 'person-outline';
           return <Ionicons name={iconName} size={size} color={color} />;
@@ -69,7 +68,6 @@ const MainTabNavigator = () => {
       })}
     >
       <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Hotels" component={HotelStackScreen} />
       <Tab.Screen name="Promo" component={PromoScreen} />
       <Tab.Screen name="Profile" component={ProfileStackScreen} />
     </Tab.Navigator>
