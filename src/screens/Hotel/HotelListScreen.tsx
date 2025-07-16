@@ -87,20 +87,22 @@ const HotelListScreen = () => {
           <Text style={styles.sectionTitle}>Pilihan Hotel</Text>
         </TouchableOpacity>
         <View style={{alignItems: 'center'}}>
-        {filteredHotels.map((item) => (
-          <View style={styles.hotelRowSmall} key={item.id}>
-            <Image source={item.fotoHotel[0]} style={styles.hotelThumbSmall} />
-            <View style={styles.hotelInfoSmall}>
-              <Text style={styles.hotelNameSmall}>{item.namaHotel}</Text>
-              <View style={styles.metaRow}>
-                <Image source={require('../../assets/images/Location.png')} style={styles.metaIconSmall} />
-                <Text style={styles.metaTextSmall}>Indonesia</Text>
-                <Text style={[styles.starsSmall, { marginLeft: 8 }]}>★★★★☆</Text>
+          {filteredHotels.map((item) => (
+            <View style={styles.hotelRowPilihan} key={item.id}>
+              <Image source={item.fotoHotel[0]} style={styles.hotelThumbPilihan} />
+              <View style={styles.hotelInfoPilihan}>
+                <Text style={styles.hotelNamePilihan}>{item.namaHotel}</Text>
+                <View style={styles.metaRowPilihan}>
+                  <Image source={require('../../assets/images/Location.png')} style={styles.metaIconPilihan} />
+                  <Text style={styles.metaTextPilihan}>Indonesia</Text>
+                </View>
+                <View style={styles.starsRowPilihan}>
+                  <Text style={styles.starsPilihan}>★★★★☆</Text>
+                </View>
               </View>
+              <Text style={styles.hotelPricePilihan}>Rp 1.000.000</Text>
             </View>
-            <Text style={styles.hotelPriceSmall}>Rp 1.000.000</Text>
-          </View>
-        ))}
+          ))}
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -491,6 +493,74 @@ const styles = StyleSheet.create({
     color: '#FFC107',
     fontSize: 12,
     marginLeft: 8,
+  },
+  // Додаю стилі для Pilihan Hotel як у PilihanHotelScreen
+  hotelRowPilihan: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    borderRadius: 16, // було 20
+    marginBottom: 16, // було 24
+    padding: 0,
+    shadowColor: 'transparent',
+    width: '96%', // було '100%'
+    minHeight: 70, // було 90
+    borderWidth: 1,
+    borderColor: 'rgba(123,34,211,0.08)',
+  },
+  hotelThumbPilihan: {
+    width: 60, // було 80
+    height: 60, // було 80
+    borderRadius: 12, // було 16
+    marginRight: 14, // було 20
+    resizeMode: 'cover',
+  },
+  hotelInfoPilihan: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  hotelNamePilihan: {
+    fontSize: 14, // було 16
+    fontWeight: '400',
+    color: '#222',
+    fontFamily: 'Open Sans',
+    marginBottom: 2,
+  },
+  metaRowPilihan: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 2,
+  },
+  metaIconPilihan: {
+    width: 11, // було 13
+    height: 11, // було 13
+    marginRight: 4,
+    tintColor: '#7B22D3',
+    resizeMode: 'contain',
+  },
+  metaTextPilihan: {
+    fontSize: 10, // було 12
+    color: '#7B22D3',
+    fontFamily: 'Open Sans',
+    marginRight: 8,
+  },
+  starsRowPilihan: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 2,
+  },
+  starsPilihan: {
+    color: '#FFC107',
+    fontSize: 13, // було 16
+    marginLeft: 0,
+  },
+  hotelPricePilihan: {
+    fontSize: 16, // було 20
+    color: '#7B22D3',
+    fontWeight: 'bold',
+    fontFamily: 'Open Sans',
+    marginLeft: 10, // було 16
+    alignSelf: 'center',
   },
 });
 

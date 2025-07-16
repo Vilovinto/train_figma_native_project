@@ -5,4 +5,7 @@ export interface Room {
   stokKamar: number;
   hargaKamar: number;
   rating: number;
+  image: any; // require image
+  statusText: string;
+  statusColor: string;
 } 

@@ -1,23 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import SplashScreen from '../screens/SplashScreen';
-import MainTabNavigator from './MainTabNavigator';
-import HotelListScreen from '../screens/Hotel/HotelListScreen';
-import PilihanHotelScreen from '../screens/Hotel/PilihanHotelScreen';
-// import AuthNavigator from './AuthNavigator';
-// import { useAuth } from '../store/AuthContext';
+import SplashScreen from '../screens/Splash/SplashScreen';
+import { stackScreens } from './stackScreens';
+import { useSplashLoader } from './hooks/useSplashLoader';
 
 const RootStack = createStackNavigator();
 
 const AppNavigator = () => {
-  // const { isLoggedIn } = useAuth();
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 2000);
-    return () => clearTimeout(timer);
-  }, []);
+  const loading = useSplashLoader();
 
   return (
     <NavigationContainer>
@@ -25,11 +16,9 @@ const AppNavigator = () => {
         {loading ? (
           <RootStack.Screen name="Splash" component={SplashScreen} />
         ) : (
-          <>
-            <RootStack.Screen name="Main" component={MainTabNavigator} />
-            <RootStack.Screen name="HotelList" component={HotelListScreen} />
-            <RootStack.Screen name="PilihanHotel" component={PilihanHotelScreen} />
-          </>
+          stackScreens.map(({ name, component }) => (
+            <RootStack.Screen key={name} name={name} component={component} />
+          ))
         )}
       </RootStack.Navigator>
     </NavigationContainer>
